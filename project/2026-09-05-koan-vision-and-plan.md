@@ -188,6 +188,10 @@ Each is an entry in [backlog.md](backlog.md) with what would un-park it; the hea
   free, and it is the only way to check every template in a directory at once. The plan
   includes it; cut it if it drags.
 
+> **Decided 2026-09-05, the same day, before the scaffold leaf.** Module path
+> `github.com/bensyverson/koan`; MIT licence; `lint` ships in v1. Recorded on the scaffold leaf
+> in `job`.
+
 ## Follow-ups outside this plan
 
 - In the client project: retire the one-off script and its test, move the vocabulary to

@@ -62,3 +62,19 @@ curated bag has a multi-line value and the register the tool serves is one line 
 Un-parked by a real bag that needs multi-line values under `--used`; the fix is for `Record`
 to create `.csv` rather than `.txt` when any value for that bag carries a newline.
 
+## 2026-09-05 — `--dry-run` on the draw
+
+`--used` both reads and writes, so "would tonight's round of five fit?" cannot be asked of the
+draw itself without spending the pool; the audit agent copied the used directory and drew against
+the copy. Parked because `koan lint <template> --used <dir> -n 5` now answers the question as an
+assertion, which is the cheaper form. Un-parked by a consumer that needs the actual draw without
+the record, for example to preview a round before committing it. Source:
+[2026-09-05-self-teaching-audit.md](2026-09-05-self-teaching-audit.md).
+
+## 2026-09-05 — `--index i` to reproduce one draw
+
+The JSONL carries `i`, but the draw does not accept one; the idiom is `-n <i+1>` and take the
+(i+1)th line, which `recipes` now shows. Parked because the idiom is one pipe and the JSONL line
+already holds the draw. Un-parked by a script that reproduces single draws often enough that the
+pipe becomes the error. Source: [2026-09-05-self-teaching-audit.md](2026-09-05-self-teaching-audit.md).
+

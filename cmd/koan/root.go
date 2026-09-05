@@ -90,7 +90,7 @@ func (a *app) rootCommand() *cobra.Command {
 	flags.StringVar(&opt.usedDir, "used", "",
 		"directory of already-drawn values: excluded before the draw, appended to after it")
 	flags.Uint64Var(&opt.seed, "seed", 0,
-		"seed the draw (default: a six-digit number from the clock)")
+		"seed the draw (default: a six-digit number from the clock); 0 is a valid seed")
 	flags.IntVarP(&opt.count, "count", "n", 1, "how many draws to make from the one seeded stream")
 	flags.BoolVar(&opt.jsonl, "json", false, "print JSON Lines, one self-contained object per draw")
 

@@ -2,7 +2,7 @@ IMPORTANT: As you implement features, keep [README.md](README.md) and the dated 
 
 ## Overview
 
-You are working on `koan`, a single Go binary, usable on any project, that draws seeded random values from hand-curated bags of lines and renders them into a template. It exists to push a language model out of the centre of its distribution by handing it something it would never have chosen. It knows about lines, files, seeds and templates, and nothing else — not design, not critics, not rounds; anything that consumes a draw is a shell script in the repo that needs it. It grows out of a one-off script and a four-round slide-deck design loop on a client project, whose findings the plan summarises. Go 1.27; the only dependency is cobra. The module path and license are open decisions in the plan.
+You are working on `koan`, a single Go binary, usable on any project, that draws seeded random values from hand-curated bags of lines and renders them into a template. It exists to push a language model out of the centre of its distribution by handing it something it would never have chosen. It knows about lines, files, seeds and templates, and nothing else — not design, not critics, not rounds; anything that consumes a draw is a shell script in the repo that needs it. It grows out of a one-off script and a four-round slide-deck design loop on a client project, whose findings the plan summarises. Go 1.27; the only dependency is cobra. Module path `github.com/bensyverson/koan`, MIT licence, both decided 2026-09-05.
 
 Library + thin executable: the root package is the library; `cmd/koan` is a cobra adapter that holds no decision the library does not. The CLI is self-teaching: bare `koan`, `--help`, `recipes` and `schema` must leave an agent needing no other document, and `project/agents/cli-design.md` is the standard it is built to.
 
@@ -10,6 +10,7 @@ Library + thin executable: the root package is the library; `cmd/koan` is a cobr
 
 - [README.md](README.md) — what koan is, install, quick start, the `.csv` comma rule and the reproducibility caveat
 - [project/](project/) — dated design documents, findings and plans, the written history of the project; start with [project/2026-09-05-koan-vision-and-plan.md](project/2026-09-05-koan-vision-and-plan.md), **the plan**: the contract (bags, templates, `--used`, output shapes), the exit table, the verbs, the repo shape and the job plan that `job` carries
+- [project/2026-09-05-self-teaching-audit.md](project/2026-09-05-self-teaching-audit.md) — what a fresh agent with only the binary stumbled on, each finding paired with the rule it implies and what changed
 - [project/backlog.md](project/backlog.md) — work decided against and what would un-park it; read it before proposing a primitive that sounds novel
 - [project/gotchas.md](project/gotchas.md) — project traps and rule feedback; read it at session start
 - [project/agents/cli-design.md](project/agents/cli-design.md) — how to design a CLI for agents: grammar, output, exit codes, errors that teach; the acceptance standard for every verb

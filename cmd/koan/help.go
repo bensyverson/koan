@@ -46,7 +46,7 @@ then koan recipes for a goal and the command that reaches it.`
 const rootExample = `  # Draw one koan. --bags defaults to the template's own directory.
   koan art-director.txt
 
-  # Reproduce a draw from a log: same seed, same bags, no --used.
+  # Reproduce a draw from a log: same seed, same bags, same used state.
   koan art-director.txt --seed 412
 
   # Three designers in one round, no shared values, as a machine shape.
@@ -66,7 +66,11 @@ Draw three for a round, no repeats        koan art-director.txt -n 3
   (one seeded stream; -n 5 extends -n 3 rather than replacing it)
 
 Reproduce a draw from a log               koan art-director.txt --seed 412
-  (same seed, same bags, and omit --used: the used pool shrinks over time)
+  (same seed, same bags, against the same used state, if any: the pool a draw
+   was made from is part of what the seed means, and --used shrinks it)
+
+Reproduce draw i=2 from a log             koan p.txt --seed 412 -n 3 --json | sed -n '3p'
+  (one seed extends, so draw i is the (i+1)th line of a run of i+1)
 
 Keep rounds from repeating across days    koan art-director.txt --used .koan-used
   (excludes what is in .koan-used, then appends this run's draws to it;
@@ -107,6 +111,8 @@ const schemaText = `TEMPLATE
 BAGS
   A slot binds to <name>.txt or <name>.csv in the bags directory, matched
   exactly and case-sensitively. No plural or singular guessing.
+  A bag's values are held in file order and the seed draws by position, so
+  reordering a bag, or inserting a line above one, changes what a seed draws.
   Both files present for one name is an error, never a precedence.
   .txt  one line, one value, verbatim: commas, quotes and apostrophes literal.
   .csv  RFC 4180; the first column is the value, further columns are yours.
@@ -125,7 +131,9 @@ OUTPUT
   --json: JSON Lines, one self-contained object per draw, in order:
   {"seed":412,"i":0,"template":"art-director.txt","slots":{"adjective":"chalky"},"text":"Needs more chalky."}
     seed      the seed the run drew under
-    i         the 0-based position of the draw in the run
+    i         the 0-based index of the draw within its run, not a running
+              counter: one seed extends rather than restarts, so draw i comes
+              back as the (i+1)th line of the same seed at -n <i+1>
     template  the template path as typed, or "-" for standard input
     slots     the value drawn for each slot
     text      the rendered template
@@ -139,9 +147,12 @@ USED DIRECTORY
   there, to whichever file already backs the bag, and to <bag>.txt for a bag
   with no used file yet. The directory is created when it is first named.
   A failed run records nothing. A used directory is a pool subtraction, not a
-  history: the history is the JSONL you tee into a log.
-  Reproducing a draw means passing the same seed against the same bags and
-  omitting --used, because the used pool shrinks over time.
+  history.
+  A draw reproduces from its seed only against the same pool: the same bags, in
+  the same order, with the same used directory state. A draw made under --used
+  against a non-empty pool will not come back from --seed alone; the log line
+  already holds it, which is why the JSONL is the history and the used
+  directory is not.
 
 EXIT CODES
   The status koan exits with, from the table every tool in the house shares.

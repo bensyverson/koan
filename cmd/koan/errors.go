@@ -184,7 +184,9 @@ func fileRemedy(edit, path string, ctx remedyContext) string {
 }
 
 // exhaustedRemedy names the smaller -n that would fit, the bag to grow, and,
-// under --used, the used file to prune.
+// under --used, the used file to prune. Draw reports the tightest bag, so
+// Available is the ceiling for the whole run and the -n it quotes always
+// succeeds — a count taken from a roomier bag would fail again.
 func exhaustedRemedy(spent *koan.ExhaustedError, ctx remedyContext) string {
 	var b strings.Builder
 	if spent.Available > 0 {

@@ -156,6 +156,11 @@ func TestBarePrintsPrimerAndWritesNothing(t *testing.T) {
 		"lint",
 		"recipes",
 		"schema",
+		// lint's one-line Short must not read as though a multi-line
+		// template were something it would refuse.
+		"a multi-line template is valid; it needs --json",
+		// 0 is a seed like any other; the default only looks like "unset".
+		"0 is a valid seed",
 	)
 	entries, err := os.ReadDir(dir)
 	if err != nil {

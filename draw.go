@@ -50,8 +50,10 @@ type Request struct {
 // Both failures are found before anything is drawn, so a caller never sees a
 // partial run: Draw returns koans or an error, never both. A slot with no bag
 // in req.Bags is an *UnboundSlotError; a bag that cannot supply req.Count
-// distinct values is an *ExhaustedError naming the first such bag in slot
-// order.
+// distinct values is an *ExhaustedError naming the tightest such bag — the one
+// with the fewest distinct values, the first in slot order among ties. Every
+// slot is checked, so the Available it reports is the ceiling for the whole
+// run and a caller that retries at that count succeeds.
 //
 // A req.Count below 1 returns (nil, nil): the CLI rejects it earlier as a
 // usage error, and there is nothing for the library to object to.
@@ -66,11 +68,16 @@ func Draw(req Request) ([]Koan, error) {
 			return nil, &UnboundSlotError{Slot: slot}
 		}
 	}
+	// Every slot is checked before any is reported, because the tightest bag
+	// is the one whose count the caller must draw within: reporting the first
+	// short bag hands back a ceiling that a later bag would still refuse.
+	var tightest *ExhaustedError
 	pools := make([][]string, len(slots))
 	for i, slot := range slots {
 		bag := req.Bags[slot]
-		if available := distinctCount(bag.Values); available < req.Count {
-			return nil, &ExhaustedError{
+		available := distinctCount(bag.Values)
+		if available < req.Count && (tightest == nil || available < tightest.Available) {
+			tightest = &ExhaustedError{
 				Name:      bag.Name,
 				Path:      bag.Path,
 				Available: available,
@@ -78,6 +85,9 @@ func Draw(req Request) ([]Koan, error) {
 			}
 		}
 		pools[i] = slices.Clone(bag.Values)
+	}
+	if tightest != nil {
+		return nil, tightest
 	}
 
 	stream := rand.New(rand.NewPCG(req.Seed, 0))

@@ -9,3 +9,11 @@ Project-specific traps that cost real time and that no general rule predicts. Re
 Format: one dated H2 headline, then one paragraph. If an entry needs more than that, it's a finding — write it as a dated doc under `project/` and link it from the paragraph.
 
 ---
+
+## 2026-09-05 — `agents check` fails inside the sandbox with a message that reads like a broken install
+
+`Error: /Users/ben/git/koan: source "agents-md": reading modules: open .: operation not permitted`.
+It is the sandbox: the tool reads its module cache under the home directory. Re-run that one call
+with the sandbox disabled, as for `go` and `git`; the message is not in `harness.md`'s list of
+recognisable denials yet.
+

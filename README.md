@@ -38,11 +38,11 @@ Write your own bag by dropping `muse.txt` beside the template, one value per lin
 ## Two things to know
 
 - **Commas in `.csv` bags must be quoted.** A `.csv` bag is parsed as CSV and the first column is the value, so an unquoted comma silently shortens the value. Put prose with commas in a `.txt` bag, where a line is a value verbatim.
-- **Reproduce without `--used`.** Under `--used` the pool shrinks over time, so the same seed on a later day gives a different draw. Pass the same seed against the same bags and omit `--used`.
+- **A seed reproduces a draw only against the same pool.** That means the same bags, in the same order, with the same used state. A draw made under `--used` on a later day will not come back from its seed alone, because the pool it indexed has shrunk since. The JSONL line already holds the draw, so log the draws with `--json`: the log is the history, the used directory is not.
 
 ## More
 
-The design, the contract and the history live in [project/](project/), starting with [the plan](project/2026-09-05-koan-vision-and-plan.md).
+The design, the contract and the history live in [project/](project/), starting with [the plan](project/2026-09-05-koan-vision-and-plan.md). What a fresh agent stumbled on, and what changed because of it, is in [the self-teaching audit](project/2026-09-05-self-teaching-audit.md).
 
 ## Authorship and license
 

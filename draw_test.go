@@ -181,8 +181,37 @@ func TestDrawExhaustedCountsDistinct(t *testing.T) {
 	}
 }
 
-// TestDrawExhaustedNamesFirstSlot pins which bag is reported when more than one
-// is too small: the first in template order, so the message is stable.
+// TestDrawExhaustedNamesTightestBag pins that exhaustion reports the ceiling
+// for the whole run, not the first bag that happens to be short: the remedy
+// quotes Available, so naming a roomier bag sends the caller to a count that
+// still fails.
+func TestDrawExhaustedNamesTightestBag(t *testing.T) {
+	bags := bagsOf(
+		inlineBag("a", "1", "2", "3", "4", "5"),
+		inlineBag("b", "1", "2"),
+		inlineBag("c", "1", "2", "3"),
+	)
+	_, err := Draw(Request{
+		Template: ParseTemplate("{a} {b} {c}"),
+		Name:     "-",
+		Bags:     bags,
+		Seed:     1,
+		Count:    10,
+	})
+	e := wantErr[*ExhaustedError](t, err)
+	if e.Name != "b" {
+		t.Errorf("Name = %q, want %q: b is the tightest bag", e.Name, "b")
+	}
+	if e.Available != 2 {
+		t.Errorf("Available = %d, want 2", e.Available)
+	}
+	if e.Needed != 10 {
+		t.Errorf("Needed = %d, want 10", e.Needed)
+	}
+}
+
+// TestDrawExhaustedNamesFirstSlot pins how a tie breaks when two bags are
+// equally short: the first in template order, so the message is stable.
 func TestDrawExhaustedNamesFirstSlot(t *testing.T) {
 	bags := bagsOf(inlineBag("a", "one"), inlineBag("b", "two"))
 	for _, tc := range []struct{ source, want string }{
