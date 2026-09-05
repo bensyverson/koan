@@ -1,0 +1,6 @@
+# value, comment
+"first line
+# not a comment, it is inside a quoted field
+
+still the same value",a multi-line RFC 4180 field
+plain

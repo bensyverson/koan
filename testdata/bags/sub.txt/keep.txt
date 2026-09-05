@@ -1,0 +1,1 @@
+A directory whose name ends in .txt is not a bag, and ListBags does not recurse.

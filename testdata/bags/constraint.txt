@@ -1,0 +1,3 @@
+# constraints carry commas, so they live in .txt
+Only one typeface, only two sizes
+No, really: no gradients

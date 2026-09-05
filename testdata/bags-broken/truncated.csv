@@ -1,0 +1,4 @@
+# An unquoted comma truncates the value at the comma. This is the documented
+# .csv trap; the README warns about it and TestUnquotedCommaTruncates pins it.
+Only one typeface, only two sizes
+"Quoted, and whole"

@@ -1,0 +1,5 @@
+# a CRLF comment
+chalky
+
+  brittle  
+Do not, ever
