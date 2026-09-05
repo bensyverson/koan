@@ -1,0 +1,7 @@
+# six distinct animals, enough for -n 5
+heron
+otter
+badger
+kestrel
+marmot
+pike

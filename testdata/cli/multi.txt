@@ -1,0 +1,3 @@
+Needs more {adjective} {quality}.
+Channel your inner {muse}.
+Constraint: {constraint}

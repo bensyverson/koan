@@ -136,8 +136,12 @@ type ExhaustedError struct {
 
 // Error implements error.
 func (e *ExhaustedError) Error() string {
-	return fmt.Sprintf("bag %s (%s) has %d distinct values, not enough for %d draws",
-		e.Name, e.Path, e.Available, e.Needed)
+	draws := "draws"
+	if e.Needed == 1 {
+		draws = "draw"
+	}
+	return fmt.Sprintf("bag %s (%s) has %d distinct values, not enough for %d %s",
+		e.Name, e.Path, e.Available, e.Needed, draws)
 }
 
 // UnboundSlotError reports a template slot with no bag in Request.Bags. It is

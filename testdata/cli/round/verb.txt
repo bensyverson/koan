@@ -1,0 +1,7 @@
+# six distinct verbs, enough for -n 5
+waits
+turns
+listens
+counts
+folds
+watches

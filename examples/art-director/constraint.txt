@@ -1,0 +1,50 @@
+# Constraints, in the Oblique Strategies register. One per line, verbatim:
+# this is a .txt bag, so commas and apostrophes need no quoting.
+# Each line is a hard rule a reviewer can see you honoured or not. An
+# adjective retunes a design; a constraint moves it.
+No slide may carry more than twelve words
+One slide is entirely black with a single line of type
+Only one typeface, only two sizes
+Every number is set larger than every headline
+The most important slide has no words
+Delete the second-best element on every slide
+One slide is a single photograph
+The transition IS the content
+Remove every box, rule and divider
+Two slides are identical except for one word
+The first slide and the last slide are the same slide
+Nothing is centered
+Everything is centered
+One colour, plus paper
+Every slide must survive being printed in black and white
+Cut the deck to half its slides, then cut two more
+No slide explains the slide before it
+One slide holds the room for a full minute
+The client's name appears exactly once
+Set the smallest type you dare, then go one step smaller
+Every headline is a question
+No slide has a headline at all
+Show the number before you show the claim
+One slide is a table and it is beautiful
+Put the conclusion on slide two
+The margin is the widest element on the page
+Replace one slide with a photograph of a hand
+Nothing moves, except once
+The whole deck is left-aligned and stays that way
+Three columns become two
+The quietest slide follows the loudest
+Type touches an edge on every slide
+One slide is only a date
+Say the hardest sentence first, in the largest type
+Every slide passes the squint test at arm's length
+Every image is full-bleed or absent
+The agenda is deleted and never missed
+One word is set twice as large as anything else in the deck
+Colour appears on exactly three slides
+Read it aloud; anything you skip comes off the slide
+The deck is built in three dimensions: every slide is a view of one object
+A full-bleed photograph on every slide, with the type set inside it
+Type alone: no image, no chart drawn as a chart, no mark
+Everything looks made by hand with a pen or a brush; only the captions are set in type
+Motion is the content: every slide is a build of at least four beats
+Not a deck but a document: each slide is a page from a printed report, photographed or scanned
