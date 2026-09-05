@@ -240,6 +240,26 @@ func TestSeedDefaultsToTheClockAndReproduces(t *testing.T) {
 	again.wantStdout(t, first.stdout)
 }
 
+// TestClockSeedIsNotQuantised guards against a clock that ticks coarser than
+// the seed's modulus. macOS reports wall-clock time in microseconds, so a seed
+// taken as nanoseconds modulo a million always ended in 000 and only a
+// thousand seeds were ever possible. Five runs all landing on a multiple of
+// 1000 by chance is a one-in-10^15 event.
+func TestClockSeedIsNotQuantised(t *testing.T) {
+	dir := fixture(t)
+	for range 5 {
+		run := cli(t, dir, "cli/koan.txt", "--bags", "bags").wantCode(t, 0)
+		seed, ok := strings.CutPrefix(strings.TrimSpace(run.stderr), "seed=")
+		if !ok {
+			t.Fatalf("stderr = %q, want a seed= line", run.stderr)
+		}
+		if !strings.HasSuffix(seed, "000") {
+			return
+		}
+	}
+	t.Fatal("five clock seeds in a row were multiples of 1000: the seed is quantised by the clock")
+}
+
 func TestCountDrawsWithoutRepeatingAValue(t *testing.T) {
 	dir := fixture(t)
 	r := cli(t, dir, "cli/round/round.txt", "--seed", "7", "-n", "3", "--json").wantCode(t, 0)

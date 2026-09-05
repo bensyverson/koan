@@ -18,6 +18,14 @@ import (
 // out of a log without transcription errors.
 const clockSeedModulus = 1_000_000
 
+// clockSeed is the seed for a run that named none: the microseconds of the
+// current second. Microseconds rather than nanoseconds because macOS reports
+// wall-clock time at microsecond resolution, so nanoseconds modulo a million
+// always ended in 000 and only a thousand seeds were ever possible.
+func clockSeed() uint64 {
+	return uint64(time.Now().UnixMicro()) % clockSeedModulus
+}
+
 // stdinName is the template argument that means standard input, and the name
 // such a draw reports in its JSON.
 const stdinName = "-"
@@ -183,7 +191,7 @@ func (a *app) draw(cmd *cobra.Command, args []string, opt *drawOptions) error {
 
 	seed := opt.seed
 	if !cmd.Flags().Changed("seed") {
-		seed = uint64(time.Now().UnixNano()) % clockSeedModulus
+		seed = clockSeed()
 	}
 	koans, err := koan.Draw(koan.Request{
 		Template: tmpl,
