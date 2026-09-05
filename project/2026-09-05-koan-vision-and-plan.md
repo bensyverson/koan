@@ -47,6 +47,12 @@ koan <template> [--bags <dir>] [--used <dir>] [--seed <n>] [-n <k>] [--json]
   the pool before drawing; after a fully successful run, every drawn value is appended there.
   No flag, no exclusion, no recording: the tool is ephemeral by default, and the directory is
   the only state, named on every call, created when first named.
+  > **Corrected 2026-09-05, while building the used leaf.** The used directory is read as a
+  > bags directory, so `<dir>/<bag>.csv` is honoured on exclusion as well as `.txt`, with the
+  > same exact, case-sensitive resolution. Recording appends to whichever file already backs the
+  > bag, through the CSV encoder when it is `.csv`, and creates `<bag>.txt` only for a bag with no
+  > used file yet; appending `.txt` beside an existing `.csv` would manufacture the ambiguous pair
+  > the loader refuses. Decided on the used leaf (`hGODxR`) in `job`.
 - `--json` switches the output shape (below). `--version` prints the build.
 
 ### Bags

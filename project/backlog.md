@@ -44,3 +44,21 @@ the loop that consumes this draws once per round from one process.
 
 A `#` line is the header. Guessing that the first row is a header is the same lie as guessing
 plurals. Un-parked by nothing foreseeable.
+
+## 2026-09-05 — Atomic recording to the used directory
+
+`Record` appends to one file per bag as it goes, so a write that fails on the third bag leaves
+the first two appended: "a failed run writes nothing" holds, "a failed *record* writes nothing"
+does not. All-or-nothing wants a temp file and a rename per bag, which sits beside the locking
+question above. Parked until a record failure is observed in practice; a full disk or a
+permission change mid-run is the trigger, and the fix is the same as for locking.
+
+## 2026-09-05 — Multi-line `.csv` values in a `.txt` used file
+
+RFC 4180 allows a quoted value to span lines, and the loader honours that. Recording such a
+value into a fresh `<bag>.txt` used file writes it across several lines, so the next run's
+exclusion by value cannot match it and excludes its fragments instead. Parked because no
+curated bag has a multi-line value and the register the tool serves is one line per idea.
+Un-parked by a real bag that needs multi-line values under `--used`; the fix is for `Record`
+to create `.csv` rather than `.txt` when any value for that bag carries a newline.
+
