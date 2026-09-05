@@ -1,0 +1,19 @@
+# Binaries
+/koan
+
+# Go
+vendor/
+/.gocache/
+/.gotmp/
+
+# job: cache and sidecars are disposable, rebuilt from .jobs/log
+.jobs.db*
+# Machine-local job state (identity, strict mode, focus)
+.jobs/local.json
+
+# Agent worktrees
+.claude/worktrees/
+
+# Local-only files
+Local/
+.DS_Store
