@@ -22,7 +22,7 @@ Library + thin executable: the root package is the library; `cmd/koan` is a cobr
 ## Build and test
 
 - `go build ./...` builds the library and `cmd/koan`; `go test ./...` is the full suite. The CLI tests drive the built binary on fixture copies in a temp directory and assert bytes and exit codes.
-- Before every commit: `go fix ./...`, `gofmt -w .`, `go vet ./...`, `go mod tidy`, then the tests. **No pre-commit hook yet**; run them yourself.
+- Before every commit: `go fix ./...`, `gofmt -w .`, `go vet ./...`, `go mod tidy`, then the tests — `make check` runs them in that order (`make help` lists the rest). **No pre-commit hook yet**; run them yourself.
 - `git` refuses inside the Bash sandbox (`~/.gitconfig` is unreadable there); re-run git commands with the sandbox disabled, one call at a time — see `project/agents/harness.md`.
 
 <!-- agents:begin core@3a7a5e -->
